@@ -1,0 +1,40 @@
+#bodyElement {
+    -moz-user-select: none;
+    -webkit-user-select:  none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#box {
+    position: relative;
+    width: 650px;
+    height: 695px;
+    margin: 0 auto;
+    background-color: cyan;
+}
+#box #container {
+    position: relative;
+    float: left;
+    top: 40px;
+    width: 100px;
+}
+#box #container2 li,
+#box #container li {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight:  700;
+    border-radius:  10px;
+    text-align: center;
+    line-height: 100px;
+    background-color: lightblue;
+}
+#box #container2 {
+    position: relative;
+    float: right;
+    top: 40px;
+    width: 100px;
+}
+input[type="range"] {
+    width: 100px;
+}

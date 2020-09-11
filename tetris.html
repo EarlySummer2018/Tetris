@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块</title>
+    <script src="./lib/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <script src="./js/style.js"></script>
+    <script src="./js/shape.js"></script>
+</head>
+
+<body id="bodyElement">
+    <div id="box">
+        <!-- 左按钮 -->
+        <div id="container">
+            <ul class="lu_container_01">
+                <li class="action" onclick="go()">开始游戏</li>
+                <li class="suspend">暂停游戏</li>
+                <li class="stop">停止游戏</li>
+                
+                <li>
+                    <label for="level">级别：</label>
+                    <select name="" id="level">
+                        <option value="1000">1</option>
+                        <option value="500">2</option>
+                        <option value="300">3</option>
+                        <option value="100">4</option>
+                    </select>
+                </li>
+                <li class="score">得分0</li>
+            </ul>
+        </div>
+        <!-- 右按钮 -->
+        <div id="container2">
+            <ul class="ul_contariner_02">
+                <li>开启音乐</li>
+                <li>暂停音乐</li>
+                <li>切换音乐</li>
+                <li>
+                    <input type="range" name="" id="volumeRange">
+                </li>
+                <li>幸运抽奖</li>
+            </ul>
+        </div>
+        <!-- 抽奖图片区域 -->
+        <div id="box2">
+            <!-- 此处用于动态创建div和img标签 -->
+        </div>
+        <!-- 游戏区域 -->
+    </div>
+</body>
+<!-- 这个 tetris.js 文件 和 gameAndMusic.js 文件中使用了 document， 需要等dom结构加载完毕再使用 -->
+<script src="./js/tetris.js"></script>
+<script src="./js/gameAndMusic.js"></script>
+</html>
