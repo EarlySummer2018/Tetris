@@ -220,9 +220,25 @@ class Shape {
         })
     }
     add() {
+
+        // 重置形狀原點坐標
         this.origin = [0, 3]
+
+        // 重置形狀角度
         this.angle = 0
+
+        // 生成隨機形狀 0 --- 6   【0， 6】
         this.type = Math.floor(Math.random() * 7)
+
+        // 判斷新興莊是否會與固定方塊有重合（默認不重合）
+        let flag = true
+
+        // 判斷形狀的4個坐標位置的對應的值，如果有數字為2的，表示有重合部分
+        this.getPos(this.type, this.angle).forEach(pos => {
+            if (blocks[pos[0]][pos[1]] === 2) {
+                flag = false
+            }
+        })
     }
     
 }
