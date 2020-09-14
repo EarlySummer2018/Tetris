@@ -31,9 +31,9 @@ class Map {
                 margin: '0 auto'
             })
             .appendTo(box)
-        for (let y = 0; y < 20; y++) {
+        for (var y = 0; y < 20; y++) {
             this.blocks.push([])
-            for (let x = 0; x < 13; x++) {
+            for (var x = 0; x < 13; x++) {
                 this.blocks[y].push($('<div></div>')
                     .width(this.size)
                     .height(this.size)
@@ -55,8 +55,8 @@ class Map {
     render() {
         // 遍历砖块数据，对应的砖块div设置颜色
         // 可移动方块为红色 1， 固定方块为蓝色 2，
-        for (let y = 0; y < 20; y++) {
-            for (let x = 0; x < 13; x++) {
+        for (var y = 0; y < 20; y++) {
+            for (var x = 0; x < 13; x++) {
                 switch (blocks[y][x]) {
                     case 0:
                         this.blocks[y][x].css('backgroundColor', 'white');
@@ -75,6 +75,24 @@ class Map {
     // 封装可移动砖块的检测方法
     // 如果地图中已经没有可移动砖块，则添加一个
     moveBrickDetection() {
-        
+
+        // 默认没有可移动的砖块
+        var flag = true
+
+        // 遍历所有的方块，如果发现还有可移动的方块
+        for (var y = 19; y >=0 ; y--) {
+            for (var x = 12; x >= 0; x--) {
+                if (blocks[y][x] === 1) {
+                    flag = false
+                }
+            }
+        }
+        // 如果没有可移动的方块
+        if (flag) {
+            
+            // 新增一个可移动的方块
+            shape.add()
+        }
     }
+
 }

@@ -180,10 +180,10 @@ class Shape {
     // 封装形状砖块坐标推导方法
     getPos(type, angle) {
 
-        let shape = this.shapes[type][angle]
+        var shape = this.shapes[type][angle]
 
         // 存储形状坐标
-        let pos = []
+        var pos = []
 
         // 遍历形状数据，根据原点推算出可移动方块的坐标
 
@@ -191,12 +191,12 @@ class Shape {
             row.forEach((block, x) => {
 
                 // 遍历某个形状的具体的行和列的值为1进行推导
-                if (block === 1) {
+                if (block == 1) {
 
                     // 如果遍历到某个block块为 1 （即为红色）
                     // 根据形状原点推算出红色块所在的x坐标和y坐标
                     // 推算出4个数组之后，将这4个push到pos数组中
-                    pos.push(this.origin[0] + y, this.origin[1] + x)
+                    pos.push([this.origin[0] + y, this.origin[1] + x])
 
                 }
             })
@@ -231,11 +231,11 @@ class Shape {
         this.type = Math.floor(Math.random() * 7)
 
         // 判斷新興莊是否會與固定方塊有重合（默認不重合）
-        let flag = true
+        var flag = true
 
         // 判斷形狀的4個坐標位置的對應的值，如果有數字為2的，表示有重合部分
         this.getPos(this.type, this.angle).forEach(pos => {
-            if (blocks[pos[0]][pos[1]] === 2) {
+            if (blocks[pos[0]][pos[1]] == 2) {
                 flag = false
             }
         })

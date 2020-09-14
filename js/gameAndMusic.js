@@ -9,8 +9,8 @@ var intercal = 1000;
 function go() {
 
     // 如果当前的文字为 【开始游戏】那么点击之后首先需要刷新分数为 0
-    if (document.querySelector('#action').innerHTML === '开始游戏') {
-        if (map.myScore === 0) {
+    if (document.querySelector('.action').innerHTML === '开始游戏') {
+        if (0 == map.myScore) {
             document.querySelector('.score').innerHTML = 0
         }
     }
@@ -29,13 +29,13 @@ function go() {
         // 自动向下移动一次
 
         // 重新渲染一次
-
+        map.render()
     }, 1000)
 };
 
 function clearAll() {
-    for (let i = 0; i < blocks.length; i++) {
-        for (let j = 0; j < blocks[i].length; j++) {
+    for (var i = 0; i < blocks.length; i++) {
+        for (var j = 0; j < blocks[i].length; j++) {
             blocks[i][j] = 0
         }
     }
