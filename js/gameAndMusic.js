@@ -16,19 +16,28 @@ function go() {
     }
     //每隔一秒钟渲染最新场地数据
     // 这个返回的 id 值是在清除定时器的时候使用的
-    id = setInterval(function() {
+    id = setInterval(function () {
 
         // 触底检测是和自动向下的频率是相同的
 
         //清除砖块
 
         // 可移动砖块检测
-
+        map.moveBrickDetection()
         // 刷新得分记录
 
         // 自动向下移动一次
 
         // 重新渲染一次
-        
+
     }, 1000)
+};
+
+function clearAll() {
+    for (let i = 0; i < blocks.length; i++) {
+        for (let j = 0; j < blocks[i].length; j++) {
+            blocks[i][j] = 0
+        }
+    }
+    map.render();
 }

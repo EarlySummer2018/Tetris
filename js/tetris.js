@@ -32,7 +32,6 @@ var blocks = [
 var map = new Map();
 
 //显示场地
-
 map.show();
 
 map.render();

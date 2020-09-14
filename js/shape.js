@@ -239,6 +239,15 @@ class Shape {
                 flag = false
             }
         })
+        if (flag) {
+            this.show()
+        }else {
+            clearInterval(id)
+            id = 0;
+            alert('Game Over!');
+            // 清空屏幕
+            clearAll();
+        }
     }
     
 }
