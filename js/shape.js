@@ -190,6 +190,7 @@ class Shape {
         shape.forEach((row, y) => {
             row.forEach((block, x) => {
 
+                //   console.log(x, y);  
                 // 遍历某个形状的具体的行和列的值为1进行推导
                 if (block == 1) {
 
@@ -241,7 +242,7 @@ class Shape {
         })
         if (flag) {
             this.show()
-        }else {
+        } else {
             clearInterval(id)
             id = 0;
             alert('Game Over!');
@@ -249,5 +250,5 @@ class Shape {
             clearAll();
         }
     }
-    
+
 }

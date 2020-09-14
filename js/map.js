@@ -18,10 +18,10 @@ class Map {
     // 封装显示场地的方法
 
     show() {
-        var box = $('#box');
+        let box = $('#box');
 
         // 动态创建div代表场地
-        var map = $('<div></div>')
+        let map = $('<div></div>')
             .width(13 * this.size + 12 * this.margin)
             .height(20 * this.size + 19 * this.margin)
             // 设置样式
@@ -31,9 +31,9 @@ class Map {
                 margin: '0 auto'
             })
             .appendTo(box)
-        for (var y = 0; y < 20; y++) {
+        for (let y = 0; y < 20; y++) {
             this.blocks.push([])
-            for (var x = 0; x < 13; x++) {
+            for (let x = 0; x < 13; x++) {
                 this.blocks[y].push($('<div></div>')
                     .width(this.size)
                     .height(this.size)
@@ -55,8 +55,8 @@ class Map {
     render() {
         // 遍历砖块数据，对应的砖块div设置颜色
         // 可移动方块为红色 1， 固定方块为蓝色 2，
-        for (var y = 0; y < 20; y++) {
-            for (var x = 0; x < 13; x++) {
+        for (let y = 0; y < 20; y++) {
+            for (let x = 0; x < 13; x++) {
                 switch (blocks[y][x]) {
                     case 0:
                         this.blocks[y][x].css('backgroundColor', 'white');
@@ -77,11 +77,11 @@ class Map {
     moveBrickDetection() {
 
         // 默认没有可移动的砖块
-        var flag = true
+        let flag = true
 
         // 遍历所有的方块，如果发现还有可移动的方块
-        for (var y = 19; y >=0 ; y--) {
-            for (var x = 12; x >= 0; x--) {
+        for (let y = 19; y >= 0; y--) {
+            for (let x = 12; x >= 0; x--) {
                 if (blocks[y][x] === 1) {
                     flag = false
                 }
@@ -89,10 +89,105 @@ class Map {
         }
         // 如果没有可移动的方块
         if (flag) {
-            
+
             // 新增一个可移动的方块
             shape.add()
         }
     }
+    // 封装向下的移动方法
+    down() {
 
+        // 判断下移的前提条件
+        let flag = true
+
+        // 如果是到达场地的下边界或者下方是固定方块，那么都不能再下移
+        for (let y = 0; y < 20; y++) {
+            for (let x = 0; x < 13; x++) {
+
+                // 判断可移动砖块是否抵达了场地的下边界
+                if (blocks[y][x] === 1 && y == 19) {
+                    flag = false
+                } else if (blocks[y][x] === 1 && blocks[y + 1][x] === 2) {
+                    // 检查可移动方块下方是否是固定方块
+                    flag = false
+                }
+            }
+        }
+
+        // 如果满足下移条件
+        if (flag) {
+            for (let y = 19; y >= 0; y--) {
+                for (let x = 12; x >= 0; x--) {
+
+                    // 判断当前砖块是否是可移动砖块
+                    if (blocks[y][x] === 1) {
+
+                        // 把这个格子下发设置为1
+                        blocks[y + 1][x] = 1
+
+                        // 把这个格子本身设置为0
+                        blocks[y][x] = 0
+                    }
+                }
+            }
+
+            // 如果满足条件，才能够让形状原点下移
+            shape.origin[0]++
+
+            // 只有真正下移了，才能渲染新的砖块数据
+            this.render()
+        }
+    }
+
+    // 封装一个触底检测函数(包括固定方块)
+    bottomTest() {
+
+        // 默认是没有触底
+        let flag = false
+
+        // 判断形状的底部是否已经触底
+        // 这里的pos表示遍历到的4个小方块的任意一格
+        shape.getPos(shape.type, shape.angle).forEach(pos => {
+
+            // 判断当前的砖块是否到达底部 {
+            if (pos[0] >= 19) {
+
+                // 表示已经触底
+                flag = true
+            } else if (blocks[pos[0] + 1][pos[1]] === 2) {
+
+                // 判断当前形状的砖块的下方是否为固定方块
+                // 注意： pos[0] 表示 y 值， pos[1] 表示 x 值
+
+                // 表示已经触到下方的固定方块
+                flag = true
+            }
+        })
+
+        // 如果满足条件（即已经触底）
+        if (flag) {
+
+            // 把目前场地中的所有可移动砖块变为固体砖块   即从 1 变成 2
+            this.change(1, 2)
+        }
+    }
+
+    // 封装一个砖块的改变方法
+
+    // prev 表示旧砖块的数据
+    // next 表示新砖块的数据
+    change(prev, next) {
+
+        // 遍历砖块数据， 给对应的砖块 div 设置颜色
+        // 空格为 0 表示白色， 可移动方块 1 表示 红色， 固定方块 2 表示 蓝色
+        for (let y = 0; y < 20; y++) {
+            for (let x = 0; x < 13; x++) {
+
+                // 判断当前砖块数据是否为 prev， 如果是，则将其转变为 next
+                if (blocks[y][x] == prev) {
+                    blocks[y][x] = next
+                }
+            }
+        }
+    }
 }

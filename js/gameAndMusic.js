@@ -19,7 +19,7 @@ function go() {
     id = setInterval(function () {
 
         // 触底检测是和自动向下的频率是相同的
-
+        map.bottomTest()
         //清除砖块
 
         // 可移动砖块检测
@@ -27,7 +27,7 @@ function go() {
         // 刷新得分记录
 
         // 自动向下移动一次
-
+        map.down()
         // 重新渲染一次
         map.render()
     }, 1000)
