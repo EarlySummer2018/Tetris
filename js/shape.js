@@ -131,9 +131,9 @@ class Shape {
         // 定义反 【z】字型数据
         [
             [
+                [0, 0, 0],
                 [0, 1, 1],
-                [1, 1, 0],
-                [0, 0, 0]
+                [1, 1, 0]
             ],
             [
                 [1, 0, 0],
@@ -146,9 +146,9 @@ class Shape {
                 [1, 1, 0]
             ],
             [
-                [0, 1, 0],
-                [0, 1, 1],
-                [0, 0, 1]
+                [1, 0, 0],
+                [1, 1, 0],
+                [0, 1, 0]
             ]
         ],
         // 定义 【z】字型数据
@@ -164,14 +164,14 @@ class Shape {
                 [1, 0, 0]
             ],
             [
-                [0, 0, 0],
                 [1, 1, 0],
-                [0, 1, 1]
+                [0, 1, 1],
+                [0, 0, 0]
             ],
             [
-                [0, 0, 1],
-                [0, 1, 1],
-                [0, 1, 0]
+                [0, 1, 0],
+                [1, 1, 0],
+                [1, 0, 0]
             ]
         ]
     ]
@@ -253,15 +253,40 @@ class Shape {
     // 按上箭头变形
     rotate() {
 
-        // 获取类型
-        let type = this.shapes[this.type]
-        let arr = [0, 1, 2, 3]
-        let i = Math.floor(Math.random()*4)
-            arr.forEach((i) => {
-              console.log(i, this.shapes[this.type][i]);  
-            })
-            
-            // shape = this.shapes[this.type][i];
-            // map.render();
+        // 根据旧角度得出新角度
+        let newAngle = (this.angle + 1) % 4
+
+        // 判断新方块是否会与固定方块重合
+        // 判断新方块是否会超出边界，默认是没有超出边界
+        let flag = true;
+
+        // 得到形状的具体坐标
+        this.getPos(this.type, newAngle).forEach(pos => {
+
+            // 判断是否超出边界了，如果超出了，那么 flag 设置为false
+            if (pos[0] > 19) {
+                flag = false
+            }else if(pos[1] < 0 || pos[1] > 12) {
+                flag = false
+            }else if(blocks[pos[0]][pos[1]] === 2) {
+                // 该图形的某个方块已经触到固定方块
+                flag = false
+            }
+        }) 
+        // 如果没有超出边界
+        if(flag) {
+
+            // 设置新角度
+            this.angle = newAngle
+
+            // 清除就图形
+            map.change(1, 0)
+
+            //显示图形
+            this.show()
+
+            // 重新渲染
+            map.render()
+        }
     }
 }

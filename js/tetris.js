@@ -41,7 +41,6 @@ var shape = new Shape();
 
 // 提供玩家操作的接口
 $(document).keydown((e) => {
-    console.log(e.key);
     switch (e.key) {
         case 'ArrowLeft':
             map.left();
