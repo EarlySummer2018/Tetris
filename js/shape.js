@@ -250,5 +250,18 @@ class Shape {
             clearAll();
         }
     }
+    // 按上箭头变形
+    rotate() {
 
+        // 获取类型
+        let type = this.shapes[this.type]
+        let arr = [0, 1, 2, 3]
+        let i = Math.floor(Math.random()*4)
+            arr.forEach((i) => {
+              console.log(i, this.shapes[this.type][i]);  
+            })
+            
+            // shape = this.shapes[this.type][i];
+            // map.render();
+    }
 }

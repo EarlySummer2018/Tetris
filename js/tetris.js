@@ -37,18 +37,23 @@ map.show();
 
 map.render();
 var shape = new Shape();
-// shape.show();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 提供玩家操作的接口
+$(document).keydown((e) => {
+    console.log(e.key);
+    switch (e.key) {
+        case 'ArrowLeft':
+            map.left();
+            break;
+        case 'ArrowDown':
+            map.down();
+            break;
+        case 'ArrowUp':
+            shape.rotate();
+            break;
+        case 'ArrowRight':
+            map.right();
+            break;
+    }
+})

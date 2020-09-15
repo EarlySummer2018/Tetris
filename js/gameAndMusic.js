@@ -3,11 +3,12 @@ var id;
 
 // x向下运动的频率
 
-var intercal = 1000;
+var intercal = 500;
 
 // 开始或继续游戏函数
 function go() {
 
+    if(id) return;
     // 如果当前的文字为 【开始游戏】那么点击之后首先需要刷新分数为 0
     if (document.querySelector('.action').innerHTML === '开始游戏') {
         if (0 == map.myScore) {
@@ -30,7 +31,7 @@ function go() {
         map.down()
         // 重新渲染一次
         map.render()
-    }, 1000)
+    }, intercal)
 };
 
 function clearAll() {

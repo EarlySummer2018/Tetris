@@ -190,4 +190,78 @@ class Map {
             }
         }
     }
+
+    // 按左箭头
+    left() {
+
+        // 判断左移的前提条件，默认是可以左移
+        let flag = true
+
+        // 遍历所有的 20 行，13 列
+        for (let y = 0; y < 20; y++) {
+            for (let x = 0; x < 13; x++) {
+
+                // 判断可移动的方块是否到达了左边界
+                if (blocks[y][x] == 1 &&( (x == 0) || ((blocks[y][x - 1]) == 2))) {
+                    flag = false
+                }
+            }
+        }
+        // 如果满足条件
+        if (flag) {
+            for (let y = 0; y < 20; y++) {
+                for (let x = 0; x < 13; x++) {
+
+                    // 判断当前砖块是否是可移动的
+                    if (blocks[y][x] == 1) {
+
+                        // 把当前砖块的左边格子变为 1
+                        blocks[y][x - 1] = 1
+
+                        // 把当前砖块变为 0
+                        blocks[y][x] = 0
+                    }
+                }
+            }
+            shape.origin[1]--;
+            this.render();
+        }
+    }
+
+    // 按右箭头
+    right() {
+
+           // 判断右移的前提条件，默认是可以左移
+           let flag = true
+
+           // 遍历所有的 20 行，13 列
+           for (let y = 0; y < 20; y++) {
+               for (let x = 0; x < 13; x++) {
+   
+                   // 判断可移动的方块是否到达了左边界
+                   if (blocks[y][x] == 1 &&( (x == 12) || ((blocks[y][x + 1]) == 2))) {
+                    flag = false
+                }
+               }
+           }
+           // 如果满足条件
+           if (flag) {
+               for (let y = 0; y < 20; y++) {
+                   for (let x = 12; x >= 0; x--) {
+   
+                       // 判断当前砖块是否是可移动的
+                       if (blocks[y][x] == 1) {
+   
+                           // 把当前砖块的左边格子变为 1
+                           blocks[y][x + 1] = 1
+   
+                           // 把当前砖块变为 0
+                           blocks[y][x] = 0
+                       }
+                   }
+               }
+               shape.origin[1]++;
+               this.render();
+           }
+    }
 }
