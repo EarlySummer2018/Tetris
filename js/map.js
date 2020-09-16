@@ -173,7 +173,6 @@ class Map {
     }
 
     // 封装一个砖块的改变方法
-
     // prev 表示旧砖块的数据
     // next 表示新砖块的数据
     change(prev, next) {
@@ -263,5 +262,31 @@ class Map {
                shape.origin[1]++;
                this.render();
            }
+    }
+
+    // 封装一个砖块消除检测的函数
+    clearBrick() {
+
+        // 遍历整个 block 砖块墙
+        blocks.forEach((row, y) => {
+
+            // row 是某一行的全部 13 个数据， y 表示当前遍历到的第几行
+
+            // 检测某一行是否全部为固定方块
+            let flag = row.every(block => {
+                return block === 2
+            })
+
+            // 如果满足消除条件
+            if (flag) {
+
+                // 消除满足条件的这一行
+                blocks.splice(y, 1)
+
+                // 因为在最下方消除了一行， 所有需要在砖块数据的最上方添加一行
+                blocks.unshift( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                this.myScore += 100;
+            }
+        })
     }
 }

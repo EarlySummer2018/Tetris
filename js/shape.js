@@ -247,7 +247,7 @@ class Shape {
             id = 0;
             alert('Game Over!');
             // 清空屏幕
-            clearAll();
+            clearAll();    
         }
     }
     // 按上箭头变形

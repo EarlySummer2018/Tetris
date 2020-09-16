@@ -18,8 +18,8 @@
         <div id="container">
             <ul class="lu_container_01">
                 <li class="action" onclick="go()">开始游戏</li>
-                <li class="suspend">暂停游戏</li>
-                <li class="stop">停止游戏</li>
+                <li class="suspend" onclick="suspend()">暂停游戏</li>
+                <li class="stop" onclick="stop()">停止游戏</li>
                 
                 <li>
                     <label for="level">级别：</label>
@@ -36,9 +36,9 @@
         <!-- 右按钮 -->
         <div id="container2">
             <ul class="ul_contariner_02">
-                <li>开启音乐</li>
-                <li>暂停音乐</li>
-                <li>切换音乐</li>
+                <li class="beginMusic" onclick="playMusic()">开启音乐</li>
+                <li class="suspendMusic" onclick="suspendMusic()">暂停音乐</li>
+                <li class="nexMusic" onclick="nextMusic()">切换音乐</li>
                 <li>
                     <input type="range" name="" id="volumeRange">
                 </li>
