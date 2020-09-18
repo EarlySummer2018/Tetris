@@ -32,12 +32,15 @@ var blocks = [
 var map = new Map();
 
 //显示场地
-
 map.show();
 
+// 渲染场地
 map.render();
-var shape = new Shape();
 
+// 加载清除音乐
+map.loadClearBrickMusic();
+var shape = new Shape();
+shape.loadGameOverMusics();
 
 // 提供玩家操作的接口
 $(document).keydown((e) => {

@@ -1,3 +1,10 @@
+// 清除音乐
+var clearMusic;
+
+// 清除砖块音乐
+var clearBrickMusics = 'clear_brick.mp3';
+
+// 定义一个 map 地图类
 class Map {
     // 设置格子大小为30 像素
     size = 30
@@ -282,11 +289,31 @@ class Map {
 
                 // 消除满足条件的这一行
                 blocks.splice(y, 1)
-
                 // 因为在最下方消除了一行， 所有需要在砖块数据的最上方添加一行
                 blocks.unshift( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+                // 得分累加
                 this.myScore += 100;
+
+                // 播放得分音效
+                clearMusic.play();
             }
         })
+    }
+    getScore() {
+        return this.myScore;
+    }
+
+    // 封装一个加载消除砖块得分音效的方法
+    loadClearBrickMusic() {
+
+        // 背景音乐预加载
+        clearMusic = new Audio();
+        clearMusic.src = './audio/' + clearBrickMusics;
+        clearMusic.onloadedmetadata = function () {
+
+            // 播放消除砖块时背景音乐，音量为中等 ，0.5
+            clearMusic.volume = 0.5;
+        }
     }
 }

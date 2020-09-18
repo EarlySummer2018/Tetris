@@ -1,5 +1,9 @@
-// 封装形状类
+// 结束音乐
+var overMusic;
 
+// 游戏结束音乐
+var gameOverMusics = 'game_over.mp3';
+// 封装形状类
 class Shape {
 
     // 形状类型 0  -  6  一共 7 种类型，每种形状 4 种类型
@@ -245,6 +249,11 @@ class Shape {
         } else {
             clearInterval(id)
             id = 0;
+
+            // 游戏结束音乐
+            overMusic.play();
+            
+            // 游戏结束弹窗
             alert('Game Over!');
             // 清空屏幕
             clearAll();    
@@ -287,6 +296,19 @@ class Shape {
 
             // 重新渲染
             map.render()
+        }
+    }
+
+    // 封装游戏结束音乐函数
+    loadGameOverMusics() {
+
+        // 背景音乐预加载
+        overMusic = new Audio();
+        overMusic.src = './audio/' + gameOverMusics;
+        overMusic.onloadedmetadata = function () {
+
+            // 播放消除砖块时背景音乐，音量为中等 ，0.5
+            overMusic.volume = 0.5;
         }
     }
 }

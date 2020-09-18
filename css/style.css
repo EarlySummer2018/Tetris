@@ -10,6 +10,7 @@
     height: 695px;
     margin: 0 auto;
     background-color: cyan;
+    overflow: hidden;
 }
 #box #container {
     position: relative;
@@ -37,4 +38,13 @@
 }
 input[type="range"] {
     width: 100px;
+}
+img.girPos {
+    position: absolute;
+    width: 170px;
+    height: 208px;
+    left: 240px;
+    top: 0px;
+    border-radius:  10px;
+    z-index:  999;
 }

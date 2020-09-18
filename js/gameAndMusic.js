@@ -17,7 +17,17 @@ let musicNames = [
     '01_game_music.mp3',
     '02_game_music.mp3'
 ]
+// 表示第一次点击
+var flag = false;
 
+// 第一次点击的时间
+var firstTime;
+
+// 第二次点击的时间
+var secondTime;
+
+// 金银铜元宝的位置
+var goldBowlderShoe = [1, 5, 12, 18, 22, 28, 32, 38, 44, 47];
 // 自动预加载音乐（只加载一次，不要每次都加载）
 function loadMusic() {
 
@@ -87,10 +97,7 @@ function go() {
 
 // 刷新得分记录
 function updateScore() {
-    document.querySelector('.score').innerHTML = map.myScore
-    if (!id) {
-        document.querySelector('.score').innerHTML = 0
-    }
+    document.querySelector('.score').innerHTML = map.getScore()
 }
 
 function clearAll() {
@@ -163,6 +170,103 @@ function randomFn() {
 
 // 监听 input 框 的改变来改变音乐的大小
 let range = document.querySelector('#volumeRange');
-range.addEventListener('input', function() {
+range.addEventListener('input', function () {
     loadeMusics[0].volume = this.value / 100;
-})
+});
+
+function beginLottery() {
+    if (!flag) {
+
+        firstTime = new Date();
+    }
+    if (flag) {
+        secondTime = new Date()
+        // 如果第一次点击和第二次点击的时间间隔小于 8 秒，则停止点击
+        if (secondTime - firstTime <= 8000) {
+            return
+        }
+        // 更新 firstTime
+        firstTime = secondTime;
+    }
+
+    // 如果得分不足 500 分，则不允许抽奖
+    if (map.getScore() < 500) {
+        alert('每次抽奖需要500分，你的分数不够');
+        return
+    }
+    map.myScore -= 500
+    updateScore();
+    flag = true;
+    beautifulGirl();
+}
+
+// 封装产生奖品的函数
+function beautifulGirl() {
+
+    // 找到 box2 元素
+    let box2 = document.getElementById('box2');
+
+    // 创建 div 和 img 标签
+    let div = document.createElement('div');
+    let img = document.createElement('img');
+
+    // 设置图片的 src 属性
+    img.setAttribute('src', 'img/0.jpg');
+
+    // 设置图片的 class 属性
+    img.setAttribute('class', 'girPos');
+
+    // 将 img 标签添加到 div 中
+    div.appendChild(img);
+
+    // 将 div 标签添加到 box2 中
+    box2.appendChild(div)
+
+    // 图片的起点位置在 8px 的位置
+    var num = 8;
+    // 设置定时器让图片下移
+    var timerId = setInterval(function () {
+
+        // 每隔 10 毫秒向下移动一次
+        img.style.top = num++ + 'px';
+        let randomNum = Math.floor(Math.random() * 49)
+        img.src = './img/' + randomNum + '.jpg'
+
+        if (num >= 490) {
+            clearInterval(timerId)
+            for (let i = 0; i < goldBowlderShoe.length; i++) {
+                if (randomNum === goldBowlderShoe[i]) {
+                    switch (randomNum) {
+                        case 1:
+                            map.myScore += 20000;
+                            // alert('您抽到了【金元宝】奖励20000分')
+                            break;
+                        case 12:
+                        case 18:
+                            map.myScore += 15000;
+                            // alert('您抽到了【银元宝】奖励15000分')
+                            break;
+                        case 22:
+                        case 28:
+                        case 44:
+                            map.myScore += 10000;
+                            // alert('您抽到了【铜元宝】奖励10000分')
+                            break;
+                        case 5:
+                        case 32:
+                        case 38:
+                        case 37:
+                            map.myScore += 5000;
+                            // alert('您抽到了【绿元宝】奖励5000分')
+                            break;
+                    }
+                    updateScore();
+                }
+            }
+            setTimeout(function () {
+                box2.removeChild(div);
+            }, 1000)
+            
+        }
+    }, 10)
+}
